@@ -1,4 +1,4 @@
-#Grey Heron Detection
+##Grey Heron Detection
 
 This repository contains the `detection.py` script that applies a given object detection model in YOLOv5 format on a specified dataset.
 The funtion takes in as arguments a dictionary containing the following detection configurations:
