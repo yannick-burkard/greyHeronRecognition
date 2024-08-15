@@ -41,3 +41,11 @@ def save_dictionary(data, directory, filename):
     file_path = os.path.join(directory, filename)
     with open(file_path, 'w') as file:
         json.dump(data, file, indent=4)
+
+
+def get_num_gpus():
+    if 'CUDA_VISIBLE_DEVICES' in os.environ:
+        num_gpus = len(os.environ['CUDA_VISIBLE_DEVICES'].split(','))
+    else:
+        num_gpus = 0
+    return num_gpus
