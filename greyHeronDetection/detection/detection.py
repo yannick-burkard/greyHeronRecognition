@@ -15,7 +15,7 @@ import yaml
 import subprocess
 import shutil
 import cv2
-from utils.detection_utils import xywhn2xyxy, getClassBboxConfTsh, save_dictionary
+from utils.detection_utils import xywhn2xyxy, getClassBboxConfTsh, save_dictionary, get_num_gpus
 from ultralytics.utils.plotting import Annotator
 
 def detect_config(config_detect):
@@ -29,7 +29,6 @@ def detect_config(config_detect):
             'model_path' (str): path of model to be applied (relative to parent directory)
             'iou_tsh' (float): IoU threshold for non-max supression, default by yolov5 is 0.45
             'imgsz' (int): image resolution
-            'n_gpus' (int): number of gpus
             'save_dir' (str): path of directory where results should be saved (relative to parent directory)
             'save_im' (bool): save labelled images or not
             'save_crop': save cropped detections or not (yolov5 argument)
@@ -48,11 +47,11 @@ def detect_config(config_detect):
     iou_tsh =  config_detect['iou_tsh']
     model_path = f"{parent_dir}/{config_detect['model_path']}"
     imgsz = config_detect['imgsz']
-    n_gpus = config_detect['n_gpus']
     save_dir = f"{parent_dir}/{config_detect['save_dir']}"
     save_im = config_detect['save_im']
     save_crop = config_detect['save_crop']
     save_csv = config_detect['save_csv']
+    n_gpus = get_num_gpus()
 
     #extract conf_tsh_det
 
@@ -215,6 +214,23 @@ def detect_config(config_detect):
 
 
 #all paths specified in configs must be relative to parent directory
+config_detect = {
+    'parent_dir': 'greyHeronRecognition',
+    'yolo_path': 'greyHeronDetection/yolov5',
+    'data_path': 'dataset/GBU',
+    'model_path': 'greyHeronDetection/saved_models/md_zenodo_v5b0.0.0.pt',
+    'conf_tsh': 0.2,
+    'iou_tsh': 0.45,
+    'imgsz': 1280,
+    'save_dir': '',
+    'save_im': True,
+    'save_crop': True,
+    'save_csv': True
+    }
+detect_config(config_detect)
+
+
+
 """
 #example usage:
 config_detect = {
@@ -227,7 +243,6 @@ config_detect = {
     'conf_tsh': 0.2,
     'iou_tsh': 0.45, #NMS IoU tsh (0.45 is default for yolov5)
     'imgsz': 1280,
-    'n_gpus': get_num_gpus(),
     'save_dir': 'greyHeronDetection/detections_test',
     'save_im': True,
     'save_crop': True,
