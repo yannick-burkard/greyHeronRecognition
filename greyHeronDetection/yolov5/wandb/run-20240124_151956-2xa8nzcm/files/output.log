@@ -1,0 +1,9 @@
+Dataset not found ⚠️, missing paths ['/cluster/project/eawag/p05001/civil_service/greyHeronDetection/datasets/coco/val2017.txt']
+Downloading https://github.com/ultralytics/yolov5/releases/download/v1.0/coco2017labels.zip to /cluster/project/eawag/p05001/civil_service/greyHeronDetection/datasets/coco2017labels.zip...
+
+
+
+
+
+
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████| 46.4M/46.4M [00:13<00:00, 3.51MB/s]

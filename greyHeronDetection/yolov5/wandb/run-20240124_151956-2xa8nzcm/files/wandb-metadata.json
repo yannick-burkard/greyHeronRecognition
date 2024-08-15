@@ -1,0 +1,29 @@
+{
+    "os": "Linux-3.10.0-1160.105.1.el7.x86_64-x86_64-with-glibc2.17",
+    "python": "3.9.9",
+    "heartbeatAt": "2024-01-24T14:20:02.164896",
+    "startedAt": "2024-01-24T14:19:56.697426",
+    "docker": null,
+    "cpu_count": 4,
+    "cuda": null,
+    "args": [
+        "--batch",
+        "64",
+        "--data",
+        "coco.yaml",
+        "--weights",
+        "yolov5s.pt"
+    ],
+    "state": "running",
+    "program": "/cluster/project/eawag/p05001/civil_service/greyHeronDetection/yolov5/train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "https://github.com/ultralytics/yolov5.git",
+        "commit": "050c72cbba9ca24dcff103fca54caf21d7e8b527"
+    },
+    "email": null,
+    "root": "/cluster/project/eawag/p05001/civil_service/greyHeronDetection/yolov5",
+    "host": "eu-login-46",
+    "username": "yburkard",
+    "executable": "/cluster/apps/nss/gcc-8.2.0/python/3.9.9/x86_64/bin/python"
+}
