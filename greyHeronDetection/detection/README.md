@@ -11,7 +11,7 @@ The funtion takes in as arguments a dictionary containing the following detectio
 5. `'iou_tsh'`: IoU threshold for non-max supression, default by yolov5 is 0.45
 6. `'imgsz'`: input image resolution
 7. `'n_gpus'`: number of gpus being used
-8. 'save_dir': path of directory where results are saved (relative to parent directory)
+8. `'save_dir'`: path of directory where results are saved (relative to parent directory)
 9. `'save_im'`: boolean to save labelled images or not
 10. `'save_crop'`: boolean to save cropped detections or not (yolov5 argument)
 11. `'save_csv'`: save results to csv file or not (yolov5 argument)
