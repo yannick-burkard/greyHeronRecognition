@@ -2,7 +2,7 @@
 
 This repository contains the `detection.py` script that applies a given object detection model in YOLOv5 format on a specified dataset.
 By default, a .txt file containing labels (class, boundix box, confidence) in YOLOv5 format is saved for every image in which objects are detected.
-It is also possible to save labelled images, as well as a csv file containing results.
+It is also possible to save labelled images, cropped detections, as well as a csv file containing results.
 The funtion takes in as arguments a dictionary containing the following detection configurations:
 1. `'parent_dir'`: this is the parent directory corresponing to the greyHeronRecognition repository (e.g. `'/cluster/home/username/greyHeronRecognition'`)
 2. `'yolo_path'`: path of yolov5 repository (relative to parent directory)
@@ -14,7 +14,7 @@ The funtion takes in as arguments a dictionary containing the following detectio
 8. `'save_dir'`: path of directory where results are saved (relative to parent directory)
 9. `'save_im'`: boolean to save labelled images or not
 10. `'save_crop'`: boolean to save cropped detections or not (yolov5 argument)
-11. `'save_csv'`: save results to csv file or not (yolov5 argument)
+11. `'save_csv'`: boolean to save results to csv file or not (yolov5 argument)
 12. `'conf_tsh'`: specifies confidence threshold; if a fine-tuned model is used, this variable can further be set to
                 'get_config': extract confidence threshold saved in training configurations
                 'get_stats': extract confidence thereshold yielding maximum F1 score during training
