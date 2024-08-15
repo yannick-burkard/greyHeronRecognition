@@ -18,4 +18,5 @@ The funtion takes in as arguments a dictionary containing the following detectio
 12. `'conf_tsh'`: specifies confidence threshold; if a fine-tuned model is used, this variable can further be set to
                 'get_config': extract confidence threshold saved in training configurations
                 'get_stats': extract confidence thereshold yielding maximum F1 score during training
+
 To use this script, specify the configurations in a dictionary `config_detect`, run `detect_config(config_detect)` below and execute the python script.
