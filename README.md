@@ -44,7 +44,7 @@ Each training procedure is identified with a time stamp `time_stamp` (e.g. `2024
 - subdirectory `logs/checkpoints` with model weights and metrics for the best (maximum F1-score) and last model saved under `best_model_weightsAndMetrics_time_stamp.pth` and `last_model_weightsAndMetrics_time_stamp.pth`, respectively
 - subdirectory `logs/metrics` containing baseline and and model metrics of all epochs saved under `model_metrics_baseline_time_stamp.pth` and `model_metrics_allEps_time_stamp.pth`, respectively
 
-For model evaluation, run script evaluate_job.sh, which runs the script evaluate.py. Arguments are directly specified in script `evaluate.py` with a dictionary containing specifying the following configurations:
+For model evaluation, run script `evaluate_job.sh`, which executes the script `evaluate.py`. Arguments are directly specified in script `evaluate.py` with a dictionary containing specifying the following configurations:
 - `’parent_dir’`: parent directory (e.g. `’/cluster/project/eawag/p05001/repos/greyHeronRecognition/'`)
 - `’time_stamp’`: time stamp of training job originally
 - `’num_classes’`: number of classes (for our purposes this is fixed to 2)
@@ -70,73 +70,81 @@ Here each evaluation process is also characterized by an individual `time_stamp`
 
 ## `greyHeronDetection`
 
-This subdirectory is dedicated to the training, evaluation and new detections of object detection models. It includes a `greyHeronDetection/yolov5` repository, which has been fetched from (?) and partially adapted to be used in our case case study. Extensively modified scripts contain a `_mod` suffix (e.g. `train_mod.py`). Another subdirectory `framework_pwl` has scripts to train and evaluate object detection architectures. For model training and result visualisation, run script ?, which in turn calls script ? (training and validation) and ? (plotting and visualisation).  Arguments are directly specified in ?, and are as follows:
-`'lr0'`: initial learning rate (YOLOv5 hyperparameter)
-`'lrf'`: final learning rate (YOLOv5 hyperparameter)
-`'warmup_epochs'`: number of warmup epochs (YOLOv5 hyperparameter)
-`'time_stamp'`: time stamp of training job
-`'parent_dir'`: parent directory (e.g. `'/cluster/project/eawag/p05001/repos/greyHeronRecognition/'’`)
-`'split'`: first (`'chronological'`) or second (`'seasonal'`) split used
-`'day_night'`: day or night-time images, or both
-`'n_last_im'`: number of last images for background removal; if `'none'`, then original images are taken
-`'which_val'`: which dataset to use for validation (`'trn'`, `'val'`, `'trn_val'`, `'tst'`)
- `'conf_tsh_fixed'`: fixed confidence threshold throughout training and validation; if set to `0`, then confidence threshold is adjusted after every epoch yielding max F1-score
-`'trn_val'`: train with both training and validation data merged
-`'resample_trn'`: resample method for training
-`'n_cams_regroup’`: number of regrouped cameras during log oversampling
-`'ls_cams'`: list of filtered cameras
-`'epochs’`: number of training epochs
-`'batch_size'`: batch size
-`'weight_decay'`: weight decay for learning step
-`'imgsz'`: image resolution
-`'optimizer'`: specifies optimizer used for learning step `('SGD'`, `'Adam'`,` 'AdamW'`)
-`'freeze'`: number of layers to freeze in YOLOv5 model
-`'model'`: name of pretrained model
-`'mosaic_prob'`: mosaic probability (YOLOv5 hyperparamter)
-`'val_dataset'`: evaluate trained model on full validation set after training
-`'val_megadetector'`: evaluate megadetector on validation set
-`'reduced_dataset'`: train and evaluate on reduced dataset, if set to int n, takes n first elements before resampling, useful to make quick checks
-`'workers'`: number of workers used for data loading 
-`'n_gpus'`: number of gpus used
- `'seed'`: seed used (YOLOv5 hyperparameter)
+This subdirectory is dedicated to the training, evaluation and new detections of object detection models. 
+
+It includes a `greyHeronDetection/yolov5` repository, which has been fetched from <https://github.com/ultralytics/yolov5> and partially adapted to be used in our case study. Extensively modified scripts contain a `_mod` suffix (e.g. `train_mod.py`). Another subdirectory `framework_pwl` has scripts to train and evaluate object detection architectures. 
+
+For model training and result visualisation, run script `train_job.sh`, which in turn calls script `train_wDataResample.py` (training and validation) and `analysis/plotLearningCurves` (plotting and visualisation).  Arguments are directly specified in `train_wDataResample.py`, and are as follows:
+- `'lr0'`: initial learning rate (YOLOv5 hyperparameter)
+- `'lrf'`: final learning rate (YOLOv5 hyperparameter)
+- `'warmup_epochs'`: number of warmup epochs (YOLOv5 hyperparameter)
+- `'time_stamp'`: time stamp of training job
+- `'parent_dir'`: parent directory (e.g. `'/cluster/project/eawag/p05001/repos/greyHeronRecognition/'’`)
+- `'split'`: first (`'chronological'`) or second (`'seasonal'`) split used
+- `'day_night'`: day or night-time images, or both
+- `'n_last_im'`: number of last images for background removal; if `'none'`, then original images are taken
+- `'which_val'`: which dataset to use for validation (`'trn'`, `'val'`, `'trn_val'`, `'tst'`)
+-  `'conf_tsh_fixed'`: fixed confidence threshold throughout training and validation; if set to `0`, then confidence threshold is adjusted after every epoch yielding max F1-score
+- `'trn_val'`: train with both training and validation data merged
+- `'resample_trn'`: resample method for training
+- `'n_cams_regroup’`: number of regrouped cameras during log oversampling
+- `'ls_cams'`: list of filtered cameras
+- `'epochs’`: number of training epochs
+- `'batch_size'`: batch size
+- `'weight_decay'`: weight decay for learning step
+- `'imgsz'`: image resolution
+- `'optimizer'`: specifies optimizer used for learning step `('SGD'`, `'Adam'`,` 'AdamW'`)
+- `'freeze'`: number of layers to freeze in YOLOv5 model
+- `'model'`: name of pretrained model
+- `'mosaic_prob'`: mosaic probability (YOLOv5 hyperparamter)
+- `'val_dataset'`: evaluate trained model on full validation set after training
+- `'val_megadetector'`: evaluate megadetector on validation set
+- `'reduced_dataset'`: train and evaluate on reduced dataset, if set to int n, takes n first elements before resampling, useful to make quick checks
+- `'workers'`: number of workers used for data loading 
+- `'n_gpus'`: number of gpus used
+- `'seed'`: seed used (YOLOv5 hyperparameter)
+
 Each training process corresponds to a specific time stamp `time_stamp’`, and outputs generated are
-subdirectory `analysis/output/time_stamp containing following:
-`baseline_metrics.json`: baseline metrics
-`classCM_losses_trn.json` and `classCM_losses_val.json`: classification `confusion matrices for training nad validation data
-`configurations.txt`: training configurations
-`data_info.txt`: data information
-`dic_FitConfEp.json and dic_max_FitConfEp.json`: dictionary with fitness, confidence threshold maximising detection F1-score and epoch number for all epochs and for epoch yielding maximum fitness
-`job_id.txt`: batch job ID number
-`opt.yaml`: opt file containing parameters used in yolov5 framework
-`plots`: subdirectory containing metric curve plots in `.png` format
-subdirectory `runs/train/time_stamp` with following
-`configs`: contains training configurations (`configurations.txt`) and and hyperparamters (`hyp.yaml`) files
-`data`: contains multiple `.txt` and `.yaml` (listing training and evaluation data) for usage `yolov5` framework
-`job_id.txt`: contains batch job ID number
-`results`: results output by yolov5 framework
-For model evaluation, run script ?, which in turn calls ?. Configurations are specified as a dictionary and are as follows:
-`'parent_dir'`: parent directory (e.g. `'/cluster/project/eawag/p05001/repos/greyHeronRecognition/'’`)
-`'imgsz'`: image resolution
-`'ls_cams'`: list of filtered cameras
-`'batch_size'`: batch size
-`'time_stamp'`: time stamp of training job originally or `'megadetector'`
-`'n_last_im'`: number of last images for background removal; if 'none', then original images are taken
-`'day_night'`: day or night-time images, or both
-`'resample'`: resample method applied to dataset
-`'split'`: first (`'chronological'`) or second (`'seasonal'`) split used
-`'workers'`: number of workers used for data loading
-`'best_last'`: load best ('best') or last ('last') model during training
-`'n_gpus'`: number of gpus used
-`'conf_tsh'`: specifies confidence threshold; if set to 
-`'get_config': extract confidence threshold saved for training configs
-`'get_stats': extract confidence threshold yielding maximum F1-score during training
-`'best': determine new confidence threshold yielding maximum F1-score during evaluation for specified model and dataset
-`‘n_cams_regroup'`: number of regrouped cameras for log oversampling 2
-`'which_set'`: training (`'trn'`), validation (`'val'`), both (`'trn_val'`) or test (`'tst'`)
-Every evaluation procedure is associated with a time stamp (different to the one for training) and resulting outputs are found in analysis/output_eval/time_stamp as follows
-`configurations_eval.txt`: contains evaluation configurations
-`data`: subdirectory with `.txt`, .cache and.yaml files  (listing data) for usage `yolov5` framework
-`data_info.txt`: contains data information
-`job_id.txt`: contains batch job ID number
-`results`: results output by `yolov5` framework
+- subdirectory `analysis/output/time_stamp containing following:
+  - `baseline_metrics.json`: baseline metrics
+  - `classCM_losses_trn.json` and `classCM_losses_val.json`: classification `confusion matrices for training nad validation data
+  - `configurations.txt`: training configurations
+  - `data_info.txt`: data information
+  - `dic_FitConfEp.json and dic_max_FitConfEp.json`: dictionary with fitness, confidence threshold maximising detection F1-score and epoch number for all epochs and for epoch yielding maximum fitness
+  - `job_id.txt`: batch job ID number
+  - `opt.yaml`: opt file containing parameters used in yolov5 framework
+  - `plots`: subdirectory containing metric curve plots in `.png` format
+- subdirectory `runs/train/time_stamp` with following
+  - `configs`: contains training configurations (`configurations.txt`) and and hyperparamters (`hyp.yaml`) files
+  - `data`: contains multiple `.txt` and `.yaml` (listing training and evaluation data) for usage `yolov5` framework
+  - `job_id.txt`: contains batch job ID number
+  - `results`: results output by yolov5 framework
+
+For model evaluation, run script `evaluate_job.sh`, which in turn calls `evaluate.py`. Configurations are specified as a dictionary and are as follows:
+- `'parent_dir'`: parent directory (e.g. `'/cluster/project/eawag/p05001/repos/greyHeronRecognition/'’`)
+- `'imgsz'`: image resolution
+- `'ls_cams'`: list of filtered cameras
+- `'batch_size'`: batch size
+- `'time_stamp'`: time stamp of training job originally or `'megadetector'`
+- `'n_last_im'`: number of last images for background removal; if 'none', then original images are taken
+- `'day_night'`: day or night-time images, or both
+- `'resample'`: resample method applied to dataset
+- `'split'`: first (`'chronological'`) or second (`'seasonal'`) split used
+- `'workers'`: number of workers used for data loading
+- `'best_last'`: load best ('best') or last ('last') model during training
+- `'n_gpus'`: number of gpus used
+- `'conf_tsh'`: specifies confidence threshold; if set to 
+- `'get_config': extract confidence threshold saved for training configs
+- `'get_stats': extract confidence threshold yielding maximum F1-score during training
+- `'best': determine new confidence threshold yielding maximum F1-score during evaluation for specified model and dataset
+- `‘n_cams_regroup'`: number of regrouped cameras for log oversampling 2
+- `'which_set'`: training (`'trn'`), validation (`'val'`), both (`'trn_val'`) or test (`'tst'`)
+
+Every evaluation procedure is associated with a time stamp (different to the one for training) and resulting outputs are found in `analysis/output_eval/time_stamp` as follows
+- `configurations_eval.txt`: contains evaluation configurations
+- `data`: subdirectory with `.txt`, .cache and.yaml files  (listing data) for usage `yolov5` framework
+- `data_info.txt`: contains data information
+- `job_id.txt`: contains batch job ID number
+- `results`: results output by `yolov5` framework
+
 Furthermore subdirectory `greyHeronDetection/detection` contains scripts a script that applies a trained or untrained object detection model to a specified dataset. More details are found in the corresponding `README.md` file
