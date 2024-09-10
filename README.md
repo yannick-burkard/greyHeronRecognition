@@ -12,7 +12,9 @@ Here we have saved trained and untrained models that can be used in future appli
 
 ## `greyHeronClassification`
 
-This part is dedicated to the training and evaluation of classifiers. For training and results visualisation, one run the batch script train_job.sh, which will sequentially run scripts `trainAndAnalyze.py`, `train.py` (model training and validation) and `analysis/plotLearningCurves.py` (plotting and visualisation). Arguments are as follows:
+This part is dedicated to the training and evaluation of classifiers. 
+
+For training and results visualisation, one run the batch script train_job.sh, which will sequentially run scripts `trainAndAnalyze.py`, `train.py` (model training and validation) and `analysis/plotLearningCurves.py` (plotting and visualisation). Arguments are as follows:
 - `n_epochs`: number of training epochs
 - `batch_size`: batch size
 - `learning_rate`: learning rate
@@ -32,6 +34,7 @@ This part is dedicated to the training and evaluation of classifiers. For traini
 - `trn_val`: train with both training and validation data merged; options are `0` (false) or `1` (true)
 - `which_val`: which dataset to use for validation; options are `'val'`, `'tst'` or `'none'`
 - `split`: splitting method used; options are `'chronological'` (first) or `'seasonal'` (second)
+
 Each training procedure is identified with a time stamp `time_stamp` (e.g. `20240904_122224`) and the following outputs are generated:
 - subdirectory `analysis/output/time_stamp` containing 
   - `configurations.txt`: lists training configurations
@@ -40,6 +43,7 @@ Each training procedure is identified with a time stamp `time_stamp` (e.g. `2024
   - metric curve plots in `.png` format
 - subdirectory `logs/checkpoints` with model weights and metrics for the best (maximum F1-score) and last model saved under `best_model_weightsAndMetrics_time_stamp.pth` and `last_model_weightsAndMetrics_time_stamp.pth`, respectively
 - subdirectory `logs/metrics` containing baseline and and model metrics of all epochs saved under `model_metrics_baseline_time_stamp.pth` and `model_metrics_allEps_time_stamp.pth`, respectively
+
 For model evaluation, run script evaluate_job.sh, which runs the script evaluate.py. Arguments are directly specified in script `evaluate.py` with a dictionary containing specifying the following configurations:
 - `’parent_dir’`: parent directory (e.g. `’/cluster/project/eawag/p05001/repos/greyHeronRecognition/'`)
 - `’time_stamp’`: time stamp of training job originally
@@ -56,6 +60,7 @@ For model evaluation, run script evaluate_job.sh, which runs the script evaluate
 - `’num_workers’`: number of workers used for data loading
 - `’best_last’`: load best (`'best'`) or last (`'last'`) model during training
 - `’which_set’`: training ('trn'), validation ('val'), both ('trn_val') or test ('tst')
+
 Here each evaluation process is also characterized by an individual `time_stamp` (different that the one for training), and outputs generated  are:
 - subdirectory `analysis/output_eval/time_stamp` containing:
   - `configurations_eval.txt`: lists configurations for evaluation
