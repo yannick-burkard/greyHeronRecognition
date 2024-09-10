@@ -107,7 +107,7 @@ For model training and result visualisation, run script `train_job.sh`, which in
 Each training process corresponds to a specific time stamp `time_stamp`, and outputs generated are
 - subdirectory `analysis/output/time_stamp containing following:
   - `baseline_metrics.json`: baseline metrics
-  - `classCM_losses_trn.json` and `classCM_losses_val.json`: classification `confusion matrices for training nad validation data
+  - `classCM_losses_trn.json` and `classCM_losses_val.json`: classification confusion matrices for training nad validation data
   - `configurations.txt`: training configurations
   - `data_info.txt`: data information
   - `dic_FitConfEp.json and dic_max_FitConfEp.json`: dictionary with fitness, confidence threshold maximising detection F1-score and epoch number for all epochs and for epoch yielding maximum fitness
