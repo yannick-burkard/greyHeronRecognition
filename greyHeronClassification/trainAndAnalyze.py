@@ -73,15 +73,15 @@ config = {
         "day_night": args.day_night,
         "image_size": int(args.im_size),
         "augs": list(str(args.augs).split(',')),
-        "resample_trn": args.resample_trn, #
-        "n_cams_regroup": args.n_cams_regroup, #
+        "resample_trn": args.resample_trn,
+        "n_cams_regroup": args.n_cams_regroup,
         "ls_cams": ls_cams,
         "val_full": args.val_full,
         "trn_val": args.trn_val,
         "which_val": args.which_val,
         "split": args.split,
         #default configs, adjust if needed
-        "parent_dir": '/cluster/project/eawag/p05001/civil_service/', #parent directory for Euler cluster
+        "parent_dir": '/cluster/project/eawag/p05001/repos/greyHeronRecognition/', #parent directory for Euler cluster
         "pretrained_network": 'mobilenet',
         "num_classes": 2
         }

@@ -18,7 +18,6 @@ import subprocess
 import shutil
 
 
-
 """
 Script to train and validate model on specified dataset based on config dictionary containing following keys
     'lr0' (float): initial learning rate (YOLOv5 hyperparameter)
@@ -30,8 +29,8 @@ Script to train and validate model on specified dataset based on config dictiona
     'day_night' (str): day or night-time images, or both
     'n_last_im' (int): number of last images for background removal; if 'none', then original images are taken
     'which_val' (str): which dataset to use for validation ('trn', 'val', 'trn_val', 'tst')
-    'conf_tsh_fixed' (float): fixed confidence threshold throughout training and validation; if set to 0, then confidence threhsold is adjusted after every epoch yielding max F1-score , 
-    'trn_val' (bool): train with both training anf validation data merged
+    'conf_tsh_fixed' (float): fixed confidence threshold throughout training and validation; if set to 0, then confidence threshold is adjusted after every epoch yielding max F1-score , 
+    'trn_val' (bool): train with both training and validation data merged
     'resample_trn' (str): resample method for training
     'n_cams_regroup' (int): number of regrouped cameras during log oversampling
     'ls_cams' (list): list of filtered cameras
@@ -72,7 +71,7 @@ config = {
     'lrf': 1e-2,
     'warmup_epochs': 0,
     'time_stamp':timestamp,
-    'parent_dir': '/cluster/project/eawag/p05001/civil_service/',
+    'parent_dir': '/cluster/project/eawag/p05001/repos/greyHeronRecognition/',
     'split': 'seasonal',
     'day_night': 'day',
     'n_last_im': 'none',
@@ -82,7 +81,7 @@ config = {
     'resample_trn': 'undersample',
     'n_cams_regroup': 12,
     'ls_cams':['SBU4'],
-    'epochs': 3,
+    'epochs': 1,
     'batch_size': 32,
     'weight_decay': 1e-12,
     'imgsz': 1280,
@@ -117,7 +116,7 @@ optimizer = config['optimizer']
 workers = config['workers']
 freeze = config['freeze']
 n_gpus = config['n_gpus']
-model_path = f"{parent_dir}greyHeronDetection/saved_models/{config['model']}"
+model_path = f"{parent_dir}models/detection/{config['model']}"
 mosaic_prob = config['mosaic_prob']
 val_dataset = config['val_dataset']
 reduced_dataset = config['reduced_dataset']
@@ -145,7 +144,7 @@ elif split_key == 'chronological':
 #get data paths and labels
 
 ls_cams_rest = [cam for cam in ls_cams_all if cam not in ls_cams]
-path_trn = f'dataPreprocessing/csv_files/dataSDSC_trn{split}.csv'
+path_trn = f'data/csv_files/dataSDSC_trn{split}.csv'
 ls_images_trn_imb, ls_labelsClass_trn_imb = get_data_and_labels(csv_path=path_trn,
                                        ls_cams_filt=ls_cams,
                                        parent_dir=parent_dir,
@@ -157,8 +156,8 @@ if which_val == 'val_rest':
 else:
     ls_cams_val = ls_cams
 
-path_val = f'dataPreprocessing/csv_files/dataSDSC_val{split}.csv'
-path_tst = f'dataPreprocessing/csv_files/dataSDSC_tst{split}.csv'
+path_val = f'data/csv_files/dataSDSC_val{split}.csv'
+path_tst = f'data/csv_files/dataSDSC_tst{split}.csv'
 
 ls_images_val_imb, ls_labelsClass_val_imb = get_data_and_labels(
                                        csv_path=path_val,
@@ -194,10 +193,10 @@ if type(reduced_dataset)==int:
 
 if resample_trn == 'log_oversample':
     ls_images_trn_tmp, ls_labelsClass_trn_tmp = log_oversample_pos(ls_images_trn_imb, ls_labelsClass_trn_imb,ls_cams)
-    ls_images_trn, ls_labelsClass_trn = oversample_data(ls_images_trn_tmp, ls_labelsClass_trn_tmp) ###
+    ls_images_trn, ls_labelsClass_trn = oversample_data(ls_images_trn_tmp, ls_labelsClass_trn_tmp)
 if resample_trn == 'log_oversample_2':
     ls_images_trn_tmp, ls_labelsClass_trn_tmp = log_oversample_pos_2(ls_images_trn_imb, ls_labelsClass_trn_imb,ls_cams,n_cams_regroup)
-    ls_images_trn, ls_labelsClass_trn = oversample_data(ls_images_trn_tmp, ls_labelsClass_trn_tmp) ###
+    ls_images_trn, ls_labelsClass_trn = oversample_data(ls_images_trn_tmp, ls_labelsClass_trn_tmp)
 elif resample_trn == 'oversample_naive':
     ls_images_trn, ls_labelsClass_trn = oversample_data(ls_images_trn_imb, ls_labelsClass_trn_imb)
 
@@ -260,7 +259,6 @@ save_dictionary(config, output_dir_configs, 'configurations.txt')
 
 data_info_path = output_dir_data+"/data_info.txt"
 with open(data_info_path, "w") as file:
-    # Write the string to the file
     file.write(text_data_size)
 
 with open(trn_txt_path, 'w') as file:
@@ -273,7 +271,7 @@ data_yaml_path = f'{output_dir_data}data.yaml'
 with open(data_yaml_path, 'w') as yaml_file:
     yaml.dump(dic_data, yaml_file)
 
-###full dataset --> only works for real if noval and trn_val are false!
+#full dataset --> only works for real if noval and trn_val are false
     
 trn_txt_path_full = f'{output_dir_data}trn_data_full.txt'
 val_txt_path_full = f'{output_dir_data}val_data_full.txt'
@@ -435,7 +433,7 @@ shutil.copy(output_dir+'results/saved_additional/classCM_losses_trn.json', analy
 
 #------------------------------------------------------------------------------------------------------------------------
 
-#get and save baseline metrics (including Megadetector results) --> unimportant part
+#get and save baseline metrics (including Megadetector results)
 
 if val_megadetector:
 

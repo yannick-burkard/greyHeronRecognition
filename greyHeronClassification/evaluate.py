@@ -19,14 +19,14 @@ from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_sc
 
 from model.model_class import modelClass
 from data_loader.data_loader import dataLoader
-from utils.train_utils import train_one_epoch, evaluate_one_epoch, get_data_and_labels, oversample_data, undersample_data, get_baseline_metrics, load_data_torch, save_dictionary, train_one_epoch_neg, evaluate_one_epoch_neg, log_oversample_pos, get_num_gpus, get_num_tasks
+from utils.train_utils import train_one_epoch, evaluate_one_epoch, get_data_and_labels, oversample_data, undersample_data, get_baseline_metrics, load_data_torch, save_dictionary, log_oversample_pos, get_num_gpus, get_num_tasks
 from analysis.analysis_utils import plotAndSaveCM
 
 def evaluate_config(config_eval):
     """
     Function to evaluate model (from training timestamp) on specified dataset
     Args:
-        config (dictionary): contains list of evaluation configurations, for options see evaluate_job.sh
+        config (dictionary): contains list of evaluation configurations, for options see train_job.sh
             'parent_dir (str): parent directory
             'image_size' (int): image resolution
             'ls_cams_filt' (list): list of filtered cameras
@@ -177,20 +177,17 @@ def evaluate_config(config_eval):
     #save results
     save_path=f'{parent_dir}greyHeronClassification/analysis/output_eval/{timestamp_now}/'
     os.makedirs(save_path, exist_ok=True)
-    plotAndSaveCM(CM_norm,save_path+'confusion_matrix_norm.png','Normalized Confusion Matrix') #write function in analysis_utils!, also save normalized CM
+    plotAndSaveCM(CM_norm,save_path+'confusion_matrix_norm.png','Normalized Confusion Matrix') 
     save_dictionary(config_eval, save_path, 'configurations_eval.txt')
     save_dictionary(dic_metrics, save_path, 'metrics_eval.txt')
     file_path = save_path+"data_info.txt"
     with open(file_path, "w") as file:
         file.write(text_data_size)
 
-
-
-
 """
 #example usage:
 config_eval = {
-    'parent_dir':  '/cluster/project/eawag/p05001/civil_service/',
+    'parent_dir':  '/cluster/project/eawag/p05001/repos/greyHeronRecognition/',
     'split': '_split2',
     'n_last_im': 'none',
     'day_night': 'day',
@@ -200,7 +197,7 @@ config_eval = {
     'batch_size': 8,
     'image_size': 896,
     'num_workers': get_num_gpus(),
-    'time_stamp': '20240511_004756',
+    'time_stamp': '20240904_122224',
     'best_last': 'last',
     'pretrained_network': 'mobilenet',
     'which_weights': 'all',

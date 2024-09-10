@@ -496,13 +496,13 @@ def img2label_paths(img_paths):
     # Define label paths as a function of image paths
     label_paths = []
     for img_path in img_paths:
-        #img_path = {parent_directory}/dataDriveMichele/SBU4/2017_SBU4_03230725.JPG
-        label_path = img_path.replace('dataDriveMichele/','greyHeronDetection/datasets/grey_heron/labels/')
-        #label_path = {parent_directory}/greyHeronDetection/datasets/grey_heron/labels/SBU4/2017_SBU4_03230725.JPG
+        #img_path = {parent_directory}/dataset/dataDriveMichele/SBU4/2017_SBU4_03230725.JPG
+        label_path = img_path.replace('dataset/dataDriveMichele/','detection_labels/')
+        #label_path = {parent_directory}/detection_labels/SBU4/2017_SBU4_03230725.JPG
         label_path = label_path[:label_path.rfind('/')] + '/all' + label_path[label_path.rfind('/'):]
-        #label_path = {parent_directory}/greyHeronDetection/datasets/grey_heron/labels/SBU4/all/2017_SBU4_03230725.JPG
+        #label_path = {parent_directory}/detection_labels/SBU4/all/2017_SBU4_03230725.JPG
         label_path = label_path.rsplit(".", 1)[0] + ".txt"
-        #label_path = {parent_directory}/greyHeronDetection/datasets/grey_heron/labels/SBU4/all/2017_SBU4_03230725.txt
+        #label_path = {parent_directory}/detection_labels/SBU4/all/2017_SBU4_03230725.txt
         ###exception with 1 --> works
         if label_path[-14]=='1':
             id=27

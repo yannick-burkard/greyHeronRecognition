@@ -247,9 +247,10 @@ def train_one_epoch(
             t0 = time.time()
     #finish training step loop
 
-    avg_loss = running_loss / nsamples
-    avg_loss_neg = running_loss_neg / nsamples_neg
-    avg_loss_pos = running_loss_pos / nsamples_pos
+    eps=1e-8
+    avg_loss = running_loss / (nsamples+eps)
+    avg_loss_neg = running_loss_neg / (nsamples_neg+eps)
+    avg_loss_pos = running_loss_pos / (nsamples_pos+eps)
 
     print(f'trn loss: {avg_loss}, class loss: {[avg_loss_neg, avg_loss_pos]}')
     print(f'tot n samples: {nsamples}, class n samples: {[nsamples_neg, nsamples_pos]}')
@@ -415,10 +416,11 @@ def evaluate_one_epoch(
             pathLabelProb = list(zip(wrong_paths_np,wrong_labels_np,wrong_probabilities_np))
             ls_wrong_class+=pathLabelProb
         #finish validation loop
-            
-    avg_vloss = running_vloss / vnsamples
-    avg_vloss_neg = running_vloss_neg / vnsamples_neg
-    avg_vloss_pos = running_vloss_pos / vnsamples_pos
+    
+    eps=1e-8
+    avg_vloss = running_vloss / (vnsamples+eps)
+    avg_vloss_neg = running_vloss_neg / (vnsamples_neg+eps)
+    avg_vloss_pos = running_vloss_pos / (vnsamples_pos+eps)
 
     print('----')
     print(f'val loss: {avg_vloss}, class loss: {[avg_vloss_neg, avg_vloss_pos]}')
@@ -472,12 +474,12 @@ def get_data_and_labels(csv_path,ls_cams_filt,parent_dir,n_last_im,day_night):
     ls_image_datesPathsLabels = list(zip(ls_dates,ls_images_SIAM,ls_labels))
     sorted_image_datesPathsLabels = sorted(ls_image_datesPathsLabels, key=lambda x: x[0])
     ls_images_SIAM = [file_path for _, file_path, _ in sorted_image_datesPathsLabels]
-    ls_images = [parent_dir+ls_images_SIAM[i][35:] for i in range(len(ls_images_SIAM))]
+    ls_images = [parent_dir+'data/dataset/'+ls_images_SIAM[i][35:] for i in range(len(ls_images_SIAM))] #adapted
     ls_labels = [file_label for _, _, file_label in sorted_image_datesPathsLabels]
     if len(n_last_im)<4:
         print(f"Using images with bkg removed using last {n_last_im}")
         prefix='dataDriveMichele_noBkg/dataDriveMichele_noBkg448_'
-        ls_images=[f'{parent_dir}{prefix}{n_last_im}/SBU4/{image[-22:]}' for image in ls_images[(n_last_im+2):]]
+        ls_images=[f'{parent_dir}data/dataset/{prefix}{n_last_im}/SBU4/{image[-22:]}' for image in ls_images[(n_last_im+2):]] #adapted
         ls_labels = ls_labels[(n_last_im+2):]
     else:
         print(f"Using images with no bkg removed")
@@ -806,14 +808,14 @@ def load_data_torch(split,
     if split=='chronological':
         split_name=''
     elif split=='seasonal':
-        split_name=='_split2'
+        split_name='_split2'
 
     if mode=='trn':
-        path_csv=f'dataPreprocessing/csv_files/dataSDSC_trn{split_name}.csv'
+        path_csv=f'data/csv_files/dataSDSC_trn{split_name}.csv'
     if mode=='val':
-        path_csv=f'dataPreprocessing/csv_files/dataSDSC_val{split_name}.csv'
+        path_csv=f'data/csv_files/dataSDSC_val{split_name}.csv'
     if mode=='tst':
-        path_csv=f'dataPreprocessing/csv_files/dataSDSC_tst{split_name}.csv'
+        path_csv=f'data/csv_files/dataSDSC_tst{split_name}.csv'
 
     
         
@@ -822,8 +824,8 @@ def load_data_torch(split,
     if mode!='trn_val':
         ls_images_imb, ls_labels_imb = get_data_and_labels(path_csv,ls_cams_filt,parent_dir,n_last_im,day_night)
     if mode=='trn_val':
-        path_csv_1=f'dataPreprocessing/csv_files/dataSDSC_trn{split_name}.csv'
-        path_csv_2=f'dataPreprocessing/csv_files/dataSDSC_val{split_name}.csv'
+        path_csv_1=f'data/csv_files/dataSDSC_trn{split_name}.csv'
+        path_csv_2=f'data/csv_files/dataSDSC_val{split_name}.csv'
         ls_images_imb_1, ls_labels_imb_1 = get_data_and_labels(path_csv_1,ls_cams_filt,parent_dir,n_last_im,day_night)
         ls_images_imb_2, ls_labels_imb_2 = get_data_and_labels(path_csv_2,ls_cams_filt,parent_dir,n_last_im,day_night)
         ls_images_imb = ls_images_imb_1+ls_images_imb_2
@@ -841,7 +843,7 @@ def load_data_torch(split,
         ls_images, ls_labels = oversample_data(ls_images_tmp, ls_labels_tmp)
     if resample == 'no_resample':
             ls_images, ls_labels = ls_images_imb, ls_labels_imb
-    
+
     data_transforms = transforms.Compose([
         transforms.Resize((image_size,image_size))] +
         add_transforms +

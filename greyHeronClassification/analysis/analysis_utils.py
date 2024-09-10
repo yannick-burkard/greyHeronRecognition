@@ -192,5 +192,13 @@ def compute_metric_CM(CM,metric_name):
     return metric_val
 
 
-
+def plotAndSaveCM(CM,save_path,title):
+    """takes confusion matrix CM and saves it to save_path with title"""
+    plt.figure(figsize=(10, 7))
+    sns.heatmap(CM, annot=True, cmap='Blues', fmt='.2f', 
+                xticklabels=['Class 0', 'Class 1'], yticklabels=['Class 0', 'Class 1'])
+    plt.xlabel('Predicted label')
+    plt.ylabel('True label')
+    plt.title(title)
+    plt.savefig(save_path)
 

@@ -11,7 +11,7 @@
 
 #usage of this script: sbatch traindAndAnalyze_job.sh
 
-: ${n_epochs:=50}
+: ${n_epochs:=1}
 : ${batch_size:=32}
 : ${learning_rate:=1e-5}
 : ${weight_decay:=1e-12}
@@ -27,7 +27,7 @@
 : ${n_cams_regroup:=12} #number of regrouped cameras during log oversampling
 : ${ls_cams:='SBU4'} #filtered cameras
 : ${val_full:=0} #0 (false) or 1 (true); evaluate model on full validation set after training
-: ${trn_val:=0} #0 (false) or 1 (true); train with both training anf validation data merged
+: ${trn_val:=0} #0 (false) or 1 (true); train with both training and validation data merged
 : ${which_val:='val'} #'val', 'tst' or 'none'; which dataset to use for validation
 : ${split:='seasonal'} #'chronological' (first) or 'seasonal' (second); splitting method used
 

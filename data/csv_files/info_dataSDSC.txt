@@ -1,0 +1,24 @@
+The dataSDSC_full.csv corresponds to a pandas Dataframe object with 415406 rows and 22 columns.
+Columns and their decription are the following:
+'file_path': full path to image file in the siam-linux20 server
+'file_name': file name without the '.JPG' suffix (e.g. 2017_GBU1_01310001)
+'file_code': 8-digit code appearing in 'file_name' (e.g. 01310001)
+'InFionasCSV': 1 or 0 if the file is in CameraData_2017_july_Fiona_addons.csv or not, respectively
+'countInMetadataCSV_fullName': number of times file appears in metadata.csv by matching the full file name (as in 'file_name')
+'countInMetadataCSV_yearCamCode': number of times file appears in metadata.csv by matching file year, camera and file code separately
+'countInMeta2017CSV_fullName': number of times file appears in meta-2017.csv by matching the full file name (as in 'file_name')
+'countInMeta2017CSV_yearCamCode': number of times file appears in meta-2017.csv by matching the year, camera and file code separately
+'countInDet2017CSV_fullName': number of times file appears in detections-2017.csv by matching the full file name (as in 'file_name')
+'countInDet2017CSV_yearCamCode': number of times file appears in detections-2017.csv by matching the year, camera and file code separately
+'class_grey_herons': 1 or 0 whether the image contains a grey heron or not, respectively, according to CameraData_2017_july_Fiona_addons.csv
+'species': species ecountered in image according to CameraData_2017_july_Fiona_addons.csv
+'camera': camera appearing in 'file_name' (e.g. GBU1)
+'T_inMeta2017CSV_fullName': number of times file appears with activation mode T in meta-2017.csv by matching the full file name (as in 'file_name')
+'M_inMeta2017CSV_fullName': number of times file appears with activation mode M in meta-2017.csv by matching the full file name (as in 'file_name')
+'day_inMeta2017CSV_fullName': number of times file appears as non-infrared in meta-2017.csv by matching the full file name (as in 'file_name')
+'night_inMeta2017CSV_fullName': number of times file appears as infrared in meta-2017.csv by matching the full file name (as in 'file_name')
+'infrared': whether image was taken in infrared mode (True) or not (False)
+'mode': whether image was captured via motion- (M) or time-triggering (T)
+'time_stamp': time-stamp registered in image (empty for corrupted files)
+'corrupt': whether image file is corrupted (True) or not (False)
+'comments': comments for challenging samples, or samples which had their postive-negative labels changed

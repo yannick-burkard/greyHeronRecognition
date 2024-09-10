@@ -95,7 +95,7 @@ def evaluate_config(config_eval):
     if time_stamp == 'megadetector':
         n_classes = 3
         model = 'md_zenodo_v5b0.0.0.pt'
-        model_path=f"{parent_dir}greyHeronDetection/saved_models/{model}"
+        model_path=f"{parent_dir}models/detection/{model}"
 
     if n_classes == 3:
         class_names = {0: "animal", 1: "person", 2: "vehicle"}
@@ -105,17 +105,17 @@ def evaluate_config(config_eval):
     #data preparation
 
     if which_set=='trn':
-        path_csv=f'dataPreprocessing/csv_files/dataSDSC_trn{split}.csv'
+        path_csv=f'data/csv_files/dataSDSC_trn{split}.csv'
     if which_set=='val':
-        path_csv=f'dataPreprocessing/csv_files/dataSDSC_val{split}.csv'
+        path_csv=f'data/csv_files/dataSDSC_val{split}.csv'
     if which_set=='tst':
-        path_csv=f'dataPreprocessing/csv_files/dataSDSC_tst{split}.csv'
+        path_csv=f'data/csv_files/dataSDSC_tst{split}.csv'
 
     if which_set!='trn_val':
         ls_images_imb, ls_labels_imb = get_data_and_labels(path_csv,ls_cams,parent_dir,n_last_im,day_night)
     if which_set=='trn_val':
-        path_csv_1=f'dataPreprocessing/csv_files/dataSDSC_trn{split}.csv'
-        path_csv_2=f'dataPreprocessing/csv_files/dataSDSC_val{split}.csv'
+        path_csv_1=f'data/csv_files/dataSDSC_trn{split}.csv'
+        path_csv_2=f'data/csv_files/dataSDSC_val{split}.csv'
         ls_images_imb_1, ls_labels_imb_1 = get_data_and_labels(path_csv_1,ls_cams,parent_dir,n_last_im,day_night)
         ls_images_imb_2, ls_labels_imb_2 = get_data_and_labels(path_csv_2,ls_cams,parent_dir,n_last_im,day_night)
         ls_images_imb = ls_images_imb_1+ls_images_imb_2
@@ -231,22 +231,32 @@ n_cams_regrouped = 12
 ls_cams_single=ordered_ls_cams[:-12]
 ls_cams_regrouped=ordered_ls_cams[-12:]
 
-###important trainings
-#SBU4 US best (trn & val): 20240615_170317
-#SBU4 OS (trn & val): 
-#SBU4 OS (trn + val): 20240615_204402
-#All cams log OS 2 (trn & val): 20240607_104246
-#All cams log OS 2 (trn + val): 20240615_215852
-#All cams OS (trn & val): 20240615_220500
-#All cams OS (trn + val): 20240616_134817
-#SBU4OS (trn+val): 20240615_204402
+#20240905_055130
+config_eval = {
+    'time_stamp': '20240905_055130',
+    'conf_tsh': 'get_config',
+    'parent_dir': '/cluster/project/eawag/p05001/repos/greyHeronRecognition/',
+    'split': 'seasonal',
+    'day_night': 'day',
+    'n_last_im': 'none',
+    'which_set': 'tst',  
+    'resample': 'no_resample',
+    'ls_cams':['SBU4'],
+    'best_last': 'last',
+    'imgsz': 1280,
+    'workers': get_num_tasks(),
+    'n_gpus': get_num_gpus(),
+    'batch_size': 8,
+    'n_cams_regroup': 12
+    }
+evaluate_config(config_eval=config_eval)
 
 """
 #Example usage:
 config_eval = {
     'time_stamp': '20240616_134817',
     'conf_tsh': 'get_config',
-    'parent_dir': '/cluster/project/eawag/p05001/civil_service/',
+    'parent_dir': '/cluster/project/eawag/p05001/repos/greyHeronRecognition/',
     'split': 'seasonal',
     'day_night': 'day',
     'n_last_im': 'none',

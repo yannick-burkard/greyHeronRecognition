@@ -17,7 +17,7 @@ import copy
 
 from model.model_class import modelClass
 from data_loader.data_loader import dataLoader
-from utils.train_utils import train_one_epoch, evaluate_one_epoch, get_data_and_labels, oversample_data, undersample_data, get_baseline_metrics, load_data_torch, save_dictionary, train_one_epoch_neg, evaluate_one_epoch_neg, log_oversample_pos
+from utils.train_utils import train_one_epoch, evaluate_one_epoch, get_data_and_labels, oversample_data, undersample_data, get_baseline_metrics, load_data_torch, save_dictionary, log_oversample_pos
 
 
 def trainAndEvaluate(config):
@@ -206,23 +206,23 @@ def trainAndEvaluate(config):
     if split=='chronological':
         split_name=''
     elif split=='seasonal':
-        split_name=='_split2'
+        split_name='_split2'
 
     if not trn_val:
-        path_trn=f'dataPreprocessing/csv_files/dataSDSC_trn{split_name}.csv'
+        path_trn=f'data/csv_files/dataSDSC_trn{split_name}.csv'
         ls_images_trn_imb, ls_labels_trn_imb = get_data_and_labels(path_trn,ls_cams_filt,parent_dir,n_last_im,day_night)
     elif trn_val:
-        path_trn_1=f'dataPreprocessing/csv_files/dataSDSC_trn{split_name}.csv'
-        path_trn_2=f'dataPreprocessing/csv_files/dataSDSC_val{split_name}.csv'
+        path_trn_1=f'data/csv_files/dataSDSC_trn{split_name}.csv'
+        path_trn_2=f'data/csv_files/dataSDSC_val{split_name}.csv'
         ls_images_trn_imb_1, ls_labels_trn_imb_1 = get_data_and_labels(path_trn_1,ls_cams_filt,parent_dir,n_last_im,day_night)
         ls_images_trn_imb_2, ls_labels_trn_imb_2 = get_data_and_labels(path_trn_2,ls_cams_filt,parent_dir,n_last_im,day_night)
         ls_images_trn_imb = ls_images_trn_imb_1+ls_images_trn_imb_2
         ls_labels_trn_imb = ls_labels_trn_imb_1+ls_labels_trn_imb_2
     if not noval:
         if which_val == 'val':
-            path_val=f'dataPreprocessing/csv_files/dataSDSC_val{split_name}.csv'
+            path_val=f'data/csv_files/dataSDSC_val{split_name}.csv'
         if which_val == 'tst':
-            path_val=f'dataPreprocessing/csv_files/dataSDSC_tst{split_name}.csv'
+            path_val=f'data/csv_files/dataSDSC_tst{split_name}.csv'
         ls_images_val_imb, ls_labels_val_imb = get_data_and_labels(path_val,ls_cams_filt,parent_dir,n_last_im,day_night)
     elif noval:
         ls_images_val_imb, ls_labels_val_imb = [], []
@@ -335,7 +335,6 @@ def trainAndEvaluate(config):
             epoch_index=epoch_number,
             num_epochs=num_epochs,
             training_loader=train_data_loader_main,
-            training_loader_second=train_data_loader_second,
             optimizer=optimizer, 
             loss_fn=loss_fn, 
             model=model,

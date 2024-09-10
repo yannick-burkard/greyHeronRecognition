@@ -9,4 +9,4 @@
 #SBATCH --gres=gpumem:11g
 
 
-python evaluate_ensemble.py
+python evaluate.py

@@ -15,7 +15,7 @@ import yaml
 import subprocess
 import shutil
 import cv2
-from utils.detection_utils import xywhn2xyxy, getClassBboxConfTsh, save_dictionary, get_num_gpus
+from detection_utils import xywhn2xyxy, getClassBboxConfTsh, save_dictionary, get_num_gpus
 from ultralytics.utils.plotting import Annotator
 
 def detect_config(config_detect):
@@ -165,7 +165,7 @@ def detect_config(config_detect):
         print('running without gpus')
         command_detect = [
             'python', 
-            f"{yolo_path}/detect_mod.py",
+            f"{yolo_path}/detect.py",
             '--source', f"{data_txt_path}",
             '--weights', model_path,
             '--imgsz', str(imgsz),
@@ -215,14 +215,14 @@ def detect_config(config_detect):
 
 #all paths specified in configs must be relative to parent directory
 config_detect = {
-    'parent_dir': 'greyHeronRecognition',
+    'parent_dir': '/cluster/project/eawag/p05001/repos/greyHeronRecognition',
     'yolo_path': 'greyHeronDetection/yolov5',
-    'data_path': 'dataset/GBU',
-    'model_path': 'greyHeronDetection/saved_models/md_zenodo_v5b0.0.0.pt',
+    'data_path': 'data/dataset/dataDriveMichele/NEN/2017_NEN1_02090354.JPG',
+    'model_path': 'models/detection/md_zenodo_v5b0.0.0.pt',
     'conf_tsh': 0.2,
     'iou_tsh': 0.45,
     'imgsz': 1280,
-    'save_dir': '',
+    'save_dir': 'greyHeronDetection/detection/output',
     'save_im': True,
     'save_crop': True,
     'save_csv': True

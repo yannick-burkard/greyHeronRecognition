@@ -280,7 +280,7 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
         train_loader_eval = create_dataloader(
             train_path,
             imgsz,
-            batch_size // WORLD_SIZE * 2, ###bs_trn,######
+            batch_size // WORLD_SIZE * 2,
             gs,
             single_cls,
             hyp=hyp,

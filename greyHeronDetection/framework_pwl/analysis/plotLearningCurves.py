@@ -8,7 +8,7 @@ import sys
 import json
 import glob
 sys.path.append('..')
-from analysis.analysis_utils import get_CM_loss_dic, get_metrics, plot_and_save, plot_and_save_avg
+from analysis.analysis_utils import get_CM_loss_dic, get_metrics, plot_and_save
 
 def plot_learning_curves(parent_dir,time_stamp):
     """

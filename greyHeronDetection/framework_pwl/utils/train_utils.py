@@ -44,12 +44,12 @@ def get_data_and_labels(csv_path,ls_cams_filt,parent_dir,n_last_im,day_night):
     ls_image_datesPathsLabels = list(zip(ls_dates,ls_images_SIAM,ls_labels))
     sorted_image_datesPathsLabels = sorted(ls_image_datesPathsLabels, key=lambda x: x[0])
     ls_images_SIAM = [file_path for _, file_path, _ in sorted_image_datesPathsLabels]
-    ls_images = [parent_dir+ls_images_SIAM[i][35:] for i in range(len(ls_images_SIAM))]
+    ls_images = [parent_dir+'data/dataset/'+ls_images_SIAM[i][35:] for i in range(len(ls_images_SIAM))]
     ls_labels = [file_label for _, _, file_label in sorted_image_datesPathsLabels]
     if len(n_last_im)<4:
         print(f"Using images with bkg removed using last {n_last_im}")
         prefix='dataDriveMichele_noBkg/dataDriveMichele_noBkg448_'
-        ls_images=[f'{parent_dir}{prefix}{n_last_im}/SBU4/{image[-22:]}' for image in ls_images[(n_last_im+2):]]
+        ls_images=[f'{parent_dir}data/dataset/{prefix}{n_last_im}/SBU4/{image[-22:]}' for image in ls_images[(n_last_im+2):]]
         ls_labels = ls_labels[(n_last_im+2):]
     else:
         print(f"Using images with no bkg removed")

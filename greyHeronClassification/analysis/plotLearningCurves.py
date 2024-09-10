@@ -59,7 +59,7 @@ def plot_learning_curves(parent_dir,time_stamp):
     dics_metrics = torch.load(f'{parent_dir}greyHeronClassification/logs/metrics/model_metrics_allEps_{time_stamp}.pth',map_location=torch.device('cpu'))
 
     epochs_ls = np.arange(0,len(dics_metrics))+1
-    metric_names = ['loss','pos_class_loss','neg_class_loss','accuracy','precision','recall','f1_score','specificity','class_pctg','balanced_accuracy'] #balanced accuracy!!
+    metric_names = ['loss','pos_class_loss','neg_class_loss','accuracy','precision','recall','f1_score','specificity','balanced_accuracy']
 
     #load metrics for best model (max f1 score)
     if not noval:
