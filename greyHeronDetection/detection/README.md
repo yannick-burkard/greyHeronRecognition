@@ -16,7 +16,7 @@ The funtion takes in as arguments a dictionary containing the following detectio
 - `'save_crop'`: boolean to save cropped detections or not (yolov5 argument)
 - `'save_csv'`: boolean to save results to csv file or not (yolov5 argument)
 - `'conf_tsh'`: specifies confidence threshold; if a fine-tuned model is used, this variable can further be set to
-  - 'get_config': extract confidence threshold saved in training configurations
-  - 'get_stats': extract confidence thereshold yielding maximum F1 score during training
+  - `'get_config'`: extract confidence threshold saved in training configurations
+  - `'get_stats'`: extract confidence thereshold yielding maximum F1 score during training
 
 To use this script, specify the configurations in a dictionary `config_detect`, call `detect_config(config_detect)` below and run the python script.
