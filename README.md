@@ -14,7 +14,7 @@ Here we have saved trained and untrained models that can be used in future appli
 
 This part is dedicated to the training and evaluation of classifiers. 
 
-For training and results visualisation, one run the batch script train_job.sh, which will sequentially run scripts `trainAndAnalyze.py`, `train.py` (model training and validation) and `analysis/plotLearningCurves.py` (plotting and visualisation). Arguments are as follows:
+For training and results visualisation, one run the batch script `train_job.sh`, which will sequentially run scripts `trainAndAnalyze.py`, `train.py` (model training and validation) and `analysis/plotLearningCurves.py` (plotting and visualisation). Arguments are as follows:
 - `n_epochs`: number of training epochs
 - `batch_size`: batch size
 - `learning_rate`: learning rate
