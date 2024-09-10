@@ -134,9 +134,9 @@ For model evaluation, run script `evaluate_job.sh`, which in turn calls `evaluat
 - `'best_last'`: load best ('best') or last ('last') model during training
 - `'n_gpus'`: number of gpus used
 - `'conf_tsh'`: specifies confidence threshold; if set to 
-- `'get_config': extract confidence threshold saved for training configs
-- `'get_stats': extract confidence threshold yielding maximum F1-score during training
-- `'best': determine new confidence threshold yielding maximum F1-score during evaluation for specified model and dataset
+  - `'get_config': extract confidence threshold saved for training configs
+  - `'get_stats': extract confidence threshold yielding maximum F1-score during training
+  - `'best': determine new confidence threshold yielding maximum F1-score during evaluation for specified model and dataset
 - `‘n_cams_regroup'`: number of regrouped cameras for log oversampling 2
 - `'which_set'`: training (`'trn'`), validation (`'val'`), both (`'trn_val'`) or test (`'tst'`)
 
