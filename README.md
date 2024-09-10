@@ -145,6 +145,6 @@ Every evaluation procedure is associated with a time stamp (different to the one
 - `data`: subdirectory with `.txt`, .cache and.yaml files  (listing data) for usage `yolov5` framework
 - `data_info.txt`: contains data information
 - `job_id.txt`: contains batch job ID number
-- `results`: results output by `yolov5` framework
+- `results`: results output by yolov5 framework
 
 Furthermore subdirectory `greyHeronDetection/detection` contains scripts a script that applies a trained or untrained object detection model to a specified dataset. More details are found in the corresponding `README.md` file
