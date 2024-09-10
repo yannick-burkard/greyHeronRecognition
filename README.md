@@ -2,15 +2,15 @@ Welcome to the `greyHeronRecognition` repository! This pipeline has been develop
 
 We now provide further details for each directory.
 
-# `data`
+## `data`
 
 Here we have stored various types of data used for training and evaluation stages. `data/csv_files` contains multiple csv files listing useful information about image samples (e.g. path, label, time stamp, corrupted, infrared, mode). File `dataSDSC_full.csv` lists all data, whereas other files are comprised of training, validation and test data obtained from the first, chronological (no suffix in name) and second, season (suffix `_split2` in name) splits. Information on each column can be found in ?. Additionally, subdirectory `data/dataset` contains all image files in JPG format, and `data/detection_labels` includes bounding box labels for each positive in YOLOv5 format used for object detection.
 
-# `models`
+## `models`
 
 Here we have saved trained and untrained models that can be used in future applications. Subdirectory `models/classification` contains trained classifiers (MobileNetV2) and `models/detection` trained object detectors (YOLOv5x6)  along with the zero-shot Megadetector. Further details can be found in files ? located in each subdirectory.
 
-# `greyHeronClassification`
+## `greyHeronClassification`
 
 This part is dedicated to the training and evaluation of classifiers. For training and results visualisation, one run the batch script train_job.sh, which will sequentially run scripts ?, ? (model training and validation) and ? (plotting and visualisation). Arguments are as follows:
 `n_epochs`: number of training epochs
@@ -63,7 +63,7 @@ Here each evaluation process is also characterized by an individual `time_stamp`
 `data_info.txt`: data information
 `data_info.txt`: complete lists of evaluation metrics
 
-# `greyHeronDetection`
+## `greyHeronDetection`
 
 This subdirectory is dedicated to the training, evaluation and new detections of object detection models. It includes a `greyHeronDetection/yolov5` repository, which has been fetched from (?) and partially adapted to be used in our case case study. Extensively modified scripts contain a `_mod` suffix (e.g. `train_mod.py`). Another subdirectory `framework_pwl` has scripts to train and evaluate object detection architectures. For model training and result visualisation, run script ?, which in turn calls script ? (training and validation) and ? (plotting and visualisation).  Arguments are directly specified in ?, and are as follows:
 `'lr0'`: initial learning rate (YOLOv5 hyperparameter)
