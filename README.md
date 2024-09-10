@@ -104,7 +104,7 @@ For model training and result visualisation, run script `train_job.sh`, which in
 - `'n_gpus'`: number of gpus used
 - `'seed'`: seed used (YOLOv5 hyperparameter)
 
-Each training process corresponds to a specific time stamp `time_stamp’`, and outputs generated are
+Each training process corresponds to a specific time stamp `time_stamp`, and outputs generated are
 - subdirectory `analysis/output/time_stamp containing following:
   - `baseline_metrics.json`: baseline metrics
   - `classCM_losses_trn.json` and `classCM_losses_val.json`: classification `confusion matrices for training nad validation data
