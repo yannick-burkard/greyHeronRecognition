@@ -6,7 +6,7 @@ It is also possible to save labelled images, cropped detections, as well as a cs
 The funtion takes in as arguments a dictionary containing the following detection configurations:
 - `'parent_dir'`: this is the parent directory corresponing to the greyHeronRecognition repository (e.g. `'/cluster/home/username/greyHeronRecognition'`)
 - `'yolo_path'`: path of yolov5 repository (relative to parent directory)
-- `'data_path'`: can be string or list containing directory(ies) and / or file paths (both relative to the parent directory) of the images to be detected (e.g. `['data/SBU3','data/SBU2','data/NEN/2017_NEN1_02090354.JPG'] 
+- `'data_path'`: can be string or list containing directory(ies) and / or file paths (both relative to the parent directory) of the images to be detected (e.g. `['data/SBU3','data/SBU2','data/NEN/2017_NEN1_02090354.JPG']` 
 - `'model_path'`: path of the YOLOv5 model (e.g. `'greyHeronDetection/saved_models/md_zenodo_v5b0.0.0.pt'` for Megadetector, `'greyHeronDetection/framework_pwl/runs/train/20240615_204402/results/weights/last.pt'` for fine-tuned model)
 - `'iou_tsh'`: IoU threshold for non-max supression, default for yolov5 is 0.45
 - `'imgsz'`: input image resolution
