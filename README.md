@@ -45,21 +45,21 @@ Each training procedure is identified with a time stamp `time_stamp` (e.g. `2024
 - subdirectory `logs/metrics` containing baseline and and model metrics of all epochs saved under `model_metrics_baseline_time_stamp.pth` and `model_metrics_allEps_time_stamp.pth`, respectively
 
 For model evaluation, run script `evaluate_job.sh`, which executes the script `evaluate.py`. Arguments are directly specified in script `evaluate.py` with a dictionary containing specifying the following configurations:
-- `’parent_dir’`: parent directory (e.g. `’/cluster/project/eawag/p05001/repos/greyHeronRecognition/'`)
-- `’time_stamp’`: time stamp of training job originally
-- `’num_classes’`: number of classes (for our purposes this is fixed to 2)
-- `’batch_size`: batch size
-- `’which_weights’`: unfrozen weights from last (`'last'`) or all (`'all'`) layers
-- `’pretrained_network’`: pretrained model (for MobileNetV2 use `'mobilenet’`)
-- `’n_last_im’`: number of last images for background removal; if `'none'`, then original images are taken
-- `’day_night’`: day- (`'day`') or night-time (`'night’`) images
-- `’im_size’`: input resolution size (e.g. `'896’`)
-- `’resample’`: resample method applied to dataset; options are ` 'none'`,  `'’undersample'`, `oversample_smote`, `'oversample_naive'`, `'log_oversample'`, `'log_oversample_2'`, - `'no_resample'`
-- `’ls_cams_filt’`: filtered cameras; optionare are `'SBU4’` or `'all’`
-- `’split’`: splitting method used; options are `'chronological'` (first) or `'seasonal'` (second)
-- `’num_workers’`: number of workers used for data loading
-- `’best_last’`: load best (`'best'`) or last (`'last'`) model during training
-- `’which_set’`: training ('trn'), validation ('val'), both ('trn_val') or test ('tst')
+- `'parent_dir'`: parent directory (e.g. `'/cluster/project/eawag/p05001/repos/greyHeronRecognition/'`)
+- `'time_stamp'`: time stamp of training job originally
+- `'num_classes'`: number of classes (for our purposes this is fixed to 2)
+- `'batch_size'`: batch size
+- `'which_weights'`: unfrozen weights from last (`'last'`) or all (`'all'`) layers
+- `'pretrained_network'`: pretrained model (for MobileNetV2 use `'mobilenet’`)
+- `'n_last_im'`: number of last images for background removal; if `'none'`, then original images are taken
+- `'day_night'`: day- (`'day`') or night-time (`'night’`) images
+- `'im_size'`: input resolution size (e.g. `'896’`)
+- `'resample'`: resample method applied to dataset; options are ` 'none'`,  `'’undersample'`, `oversample_smote`, `'oversample_naive'`, `'log_oversample'`, `'log_oversample_2'`, - `'no_resample'`
+- `'ls_cams_filt'`: filtered cameras; optionare are `'SBU4’` or `'all’`
+- `'split'`: splitting method used; options are `'chronological'` (first) or `'seasonal'` (second)
+- `'num_workers'`: number of workers used for data loading
+- `'best_last'`: load best (`'best'`) or last (`'last'`) model during training
+- `'which_set'`: training ('trn'), validation ('val'), both ('trn_val') or test ('tst')
 
 Here each evaluation process is also characterized by an individual `time_stamp` (different that the one for training), and outputs generated  are:
 - subdirectory `analysis/output_eval/time_stamp` containing:
