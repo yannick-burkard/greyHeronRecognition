@@ -8,60 +8,60 @@ Here we have stored various types of data used for training and evaluation stage
 
 ## `models`
 
-Here we have saved trained and untrained models that can be used in future applications. Subdirectory `models/classification` contains trained classifiers (MobileNetV2) and `models/detection` trained object detectors (YOLOv5x6)  along with the zero-shot Megadetector. Further details can be found in files ? located in each subdirectory.
+Here we have saved trained and untrained models that can be used in future applications. Subdirectory `models/classification` contains trained classifiers (MobileNetV2) and `models/detection` trained object detectors (YOLOv5x6)  along with the zero-shot Megadetector. Further details can be found in files `model_infos.txt` located in each subdirectory.
 
 ## `greyHeronClassification`
 
-This part is dedicated to the training and evaluation of classifiers. For training and results visualisation, one run the batch script train_job.sh, which will sequentially run scripts ?, ? (model training and validation) and ? (plotting and visualisation). Arguments are as follows:
-`n_epochs`: number of training epochs
-`batch_size`: batch size
-`learning_rate`: learning rate
-`weight_decay`: weight decay
-`dropout_prob`: dropout probability (default for MobileNetV2 is 0.2)
-`seed`: torch seed
-`model_name`: model name (for MobileNetV2 use `'mobilenet’`)
-`which_weights`: unfrozen weights from last (`'last'`) or all (`'all'`) layers
-`n_last_im`: number of last images for background removal; if `'none'`, then original images are taken
-`day_night`: day- (`'day`') or night-time (`'night’`) images
-`im_size`: input resolution size (e.g. `'896’`)
-`augs`: data augmentations (e.g. `'colorjitter'`); multiple augmentations need to be separated with comma without spaces in between
-`resample_trn`: resample method for training; options are ` 'none'`,  `'undersample'`, `oversample_smote`, `'oversample_naive'`, `'log_oversample'`, `'log_oversample_2'`, `'no_resample'`
-`n_cams_regroup`: number of regrouped cameras during log oversampling
-`ls_cams`: filtered cameras; optionare are `'SBU4’` or `'all’`
-`val_full`: evaluate model on full validation set after training; options are `0` (false) or `1` (true)
-`trn_val`: train with both training and validation data merged; options are `0` (false) or `1` (true)
-`which_val`: which dataset to use for validation; options are `'val'`, `'tst'` or `'none'`
-`split`: splitting method used; options are `'chronological'` (first) or `'seasonal'` (second)
+This part is dedicated to the training and evaluation of classifiers. For training and results visualisation, one run the batch script train_job.sh, which will sequentially run scripts `trainAndAnalyze.py`, `train.py` (model training and validation) and `analysis/plotLearningCurves.py` (plotting and visualisation). Arguments are as follows:
+- `n_epochs`: number of training epochs
+- `batch_size`: batch size
+- `learning_rate`: learning rate
+- `weight_decay`: weight decay
+- `dropout_prob`: dropout probability (default for MobileNetV2 is 0.2)
+- `seed`: torch seed
+- `model_name`: model name (for MobileNetV2 use `'mobilenet’`)
+- `which_weights`: unfrozen weights from last (`'last'`) or all (`'all'`) layers
+- `n_last_im`: number of last images for background removal; if `'none'`, then original images are taken
+- `day_night`: day- (`'day`') or night-time (`'night’`) images
+- `im_size`: input resolution size (e.g. `'896’`)
+- `augs`: data augmentations (e.g. `'colorjitter'`); multiple augmentations need to be separated with comma without spaces in between
+- `resample_trn`: resample method for training; options are ` 'none'`,  `'undersample'`, `oversample_smote`, `'oversample_naive'`, `'log_oversample'`, `'log_oversample_2'`, `'no_resample'`
+- `n_cams_regroup`: number of regrouped cameras during log oversampling
+- `ls_cams`: filtered cameras; optionare are `'SBU4’` or `'all’`
+- `val_full`: evaluate model on full validation set after training; options are `0` (false) or `1` (true)
+- `trn_val`: train with both training and validation data merged; options are `0` (false) or `1` (true)
+- `which_val`: which dataset to use for validation; options are `'val'`, `'tst'` or `'none'`
+- `split`: splitting method used; options are `'chronological'` (first) or `'seasonal'` (second)
 Each training procedure is identified with a time stamp `time_stamp` (e.g. `20240904_122224`) and the following outputs are generated:
-subdirectory `analysis/output/time_stamp` containing 
-`configurations.txt`: lists training configurations
-`data_info.txt`: contains data information
-`ls_trn.csv` and `ls_val.csv`: lists train and validation samples paths used
-metric curve plots in `.png` format
-subdirectory `logs/checkpoints` with model weights and metrics for the best (maximum F1-score) and last model saved under `best_model_weightsAndMetrics_time_stamp.pth` and `last_model_weightsAndMetrics_time_stamp.pth`, respectively
-subdirectory `logs/metrics` containing baseline and and model metrics of all epochs saved under `model_metrics_baseline_time_stamp.pth` and `model_metrics_allEps_time_stamp.pth`, respectively
+- subdirectory `analysis/output/time_stamp` containing 
+  - `configurations.txt`: lists training configurations
+  - `data_info.txt`: contains data information
+  - `ls_trn.csv` and `ls_val.csv`: lists train and validation samples paths used
+  - metric curve plots in `.png` format
+- subdirectory `logs/checkpoints` with model weights and metrics for the best (maximum F1-score) and last model saved under `best_model_weightsAndMetrics_time_stamp.pth` and `last_model_weightsAndMetrics_time_stamp.pth`, respectively
+- subdirectory `logs/metrics` containing baseline and and model metrics of all epochs saved under `model_metrics_baseline_time_stamp.pth` and `model_metrics_allEps_time_stamp.pth`, respectively
 For model evaluation, run script evaluate_job.sh, which runs the script evaluate.py. Arguments are directly specified in script `evaluate.py` with a dictionary containing specifying the following configurations:
-`’parent_dir’`: parent directory (e.g. `’/cluster/project/eawag/p05001/repos/greyHeronRecognition/'`)
-`’time_stamp’`: time stamp of training job originally
-`’num_classes’`: number of classes (for our purposes this is fixed to 2)
-`’batch_size`: batch size
-`’which_weights’`: unfrozen weights from last (`'last'`) or all (`'all'`) layers
-`’pretrained_network’`: pretrained model (for MobileNetV2 use `'mobilenet’`)
-`’n_last_im’`: number of last images for background removal; if `'none'`, then original images are taken
-`’day_night’`: day- (`'day`') or night-time (`'night’`) images
-`’im_size’`: input resolution size (e.g. `'896’`)
-`’resample’`: resample method applied to dataset; options are ` 'none'`,  `'’undersample'`, `oversample_smote`, `'oversample_naive'`, `'log_oversample'`, `'log_oversample_2'`, `'no_resample'`
-`’ls_cams_filt’`: filtered cameras; optionare are `'SBU4’` or `'all’`
-`’split’`: splitting method used; options are `'chronological'` (first) or `'seasonal'` (second)
-`’num_workers’`: number of workers used for data loading
-`’best_last’`: load best (`'best'`) or last (`'last'`) model during training
-`’which_set’`: training ('trn'), validation ('val'), both ('trn_val') or test ('tst')
+- `’parent_dir’`: parent directory (e.g. `’/cluster/project/eawag/p05001/repos/greyHeronRecognition/'`)
+- `’time_stamp’`: time stamp of training job originally
+- `’num_classes’`: number of classes (for our purposes this is fixed to 2)
+- `’batch_size`: batch size
+- `’which_weights’`: unfrozen weights from last (`'last'`) or all (`'all'`) layers
+- `’pretrained_network’`: pretrained model (for MobileNetV2 use `'mobilenet’`)
+- `’n_last_im’`: number of last images for background removal; if `'none'`, then original images are taken
+- `’day_night’`: day- (`'day`') or night-time (`'night’`) images
+- `’im_size’`: input resolution size (e.g. `'896’`)
+- `’resample’`: resample method applied to dataset; options are ` 'none'`,  `'’undersample'`, `oversample_smote`, `'oversample_naive'`, `'log_oversample'`, `'log_oversample_2'`, - `'no_resample'`
+- `’ls_cams_filt’`: filtered cameras; optionare are `'SBU4’` or `'all’`
+- `’split’`: splitting method used; options are `'chronological'` (first) or `'seasonal'` (second)
+- `’num_workers’`: number of workers used for data loading
+- `’best_last’`: load best (`'best'`) or last (`'last'`) model during training
+- `’which_set’`: training ('trn'), validation ('val'), both ('trn_val') or test ('tst')
 Here each evaluation process is also characterized by an individual `time_stamp` (different that the one for training), and outputs generated  are:
- subdirectory `analysis/output_eval/time_stamp` containing:
-`configurations_eval.txt`: lists configurations for evaluation
-`confusion_matrix_norm.png`: plotted normalized confusion matrix
-`data_info.txt`: data information
-`data_info.txt`: complete lists of evaluation metrics
+- subdirectory `analysis/output_eval/time_stamp` containing:
+  - `configurations_eval.txt`: lists configurations for evaluation
+  - `confusion_matrix_norm.png`: plotted normalized confusion matrix
+  - `data_info.txt`: data information
+  - `data_info.txt`: complete lists of evaluation metrics
 
 ## `greyHeronDetection`
 
