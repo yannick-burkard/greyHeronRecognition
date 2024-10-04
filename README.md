@@ -147,4 +147,4 @@ Every evaluation procedure is associated with a time stamp (different to the one
 - `job_id.txt`: contains batch job ID number
 - `results`: results output by yolov5 framework
 
-Furthermore subdirectory `greyHeronDetection/detection` contains scripts a script that applies a trained or untrained object detection model to a specified dataset. More details are found in the corresponding `README.md` file
+Furthermore, subdirectory `greyHeronDetection/detection` contains a script that applies a trained or untrained object detection model to a specified dataset. More details are found in the corresponding `README.md` file
